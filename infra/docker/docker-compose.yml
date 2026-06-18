@@ -1,0 +1,56 @@
+version: '3.9'
+
+services:
+  api:
+    build:
+      context: ../../apps/api
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    env_file: ../../.env
+    depends_on:
+      - redis
+    restart: unless-stopped
+
+  pdv:
+    build:
+      context: ../../apps/pdv
+      dockerfile: Dockerfile
+    ports:
+      - "5173:80"
+    restart: unless-stopped
+
+  kds:
+    build:
+      context: ../../apps/kds
+      dockerfile: Dockerfile
+    ports:
+      - "5175:80"
+    restart: unless-stopped
+
+  painel:
+    build:
+      context: ../../apps/painel
+      dockerfile: Dockerfile
+    ports:
+      - "5174:80"
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    restart: unless-stopped
+
+  # Evolution API — WhatsApp
+  evolution:
+    image: atendai/evolution-api:latest
+    ports:
+      - "8080:8080"
+    env_file: ../../.env
+    restart: unless-stopped
+
+volumes:
+  redis_data:
