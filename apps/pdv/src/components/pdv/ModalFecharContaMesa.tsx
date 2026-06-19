@@ -3,7 +3,7 @@ import type { ContaPendente } from '../../hooks/usePedidoPronto'
 
 const API = import.meta.env.VITE_API_URL ?? 'http://localhost:3010'
 
-function headers() {
+function headers(): Record<string, string> {
   const token = localStorage.getItem('token')
   return {
     'Content-Type': 'application/json',
