@@ -1,5 +1,9 @@
 import { create } from 'zustand'
-import type { Produto, ItemPedido, TipoPedido } from '@lanchonete/types'
+
+type TipoPedido = 'balcao' | 'mesa' | 'delivery'
+interface Produto { id: string; nome: string; precoVenda: number; [key: string]: unknown }
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+type ItemPedido = unknown
 
 interface CarrinhoItem {
   produto: Produto
